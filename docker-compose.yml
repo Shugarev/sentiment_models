@@ -1,0 +1,12 @@
+version: '3'
+
+services:
+   web:
+    image: shugarev1974/check_text_order_api
+    command: bash -c  'python manage.py runserver 0.0.0.0:8000'
+    container_name: check_text_order_api
+    volumes:
+      - ./media:/code/media
+    ports:
+      - "8037:8000"
+    restart: always

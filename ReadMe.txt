@@ -1,3 +1,4 @@
+TODO - refactoring
 python manage.py runserver
 
 # save environment settings to file.
@@ -19,12 +20,12 @@ python  manage.py test api
 - для поднятия сервиса выполнить docker-compose up
 - пример url по которому произовдится проверка ордреа,
 
-http://192.168.0.105:8037/api/v3/check_order/
+http://192.168.0.105:8037/api/v4/check_text_order/
 
 В docker compose можно задать порт по которому будет слушаться.
 
 Если мы не хотим пушить образ в докер репозиторий, то используем команды для сохранения и загрузки образа:
-docker save -o /catboost-docker.tar shugarev1974/check_order_api_catboost
+docker save -o /catboost-docker.tar shugarev1974/check_text_order_api_catboost
 
 Для записи на сервер поменять пользователя:
 sudo chown sergey:sergey catboost-docker.tar
