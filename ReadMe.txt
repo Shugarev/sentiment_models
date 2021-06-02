@@ -8,7 +8,7 @@ pip freeze > requirements.txt
 Открыть доступ для всех ip. в файерволе.
 sudo ufw allow 8040
 
-Проверить в файле build-push-docker_image.sh, в settings.py установлен:
+Проверить в файле create-docker_image.sh, в settings.py установлен:
     DEBUG = False
 
 для запуска на сервере нужно:
@@ -29,7 +29,7 @@ http://127.0.0.1:8040/api/v4/check_text_order/ - с сервера
 В docker-compose нужно задать порт по которому будет слушаться: 8040
 
 Если мы не хотим пушить образ в докер репозиторий, то используем команды для сохранения и загрузки образа:
-docker save -o /check_text_order_v4.tar shugarev1974/check_text_order_v4
+docker save -o ~/check_text_order_v4.tar shugarev1974/check_text_order_v4
 
 Для записи на сервер поменять пользователя:
 sudo chown sergey:sergey check_text_order_v4.tar

@@ -1,13 +1,14 @@
 import re
-import nltk
 import pandas as pd
 import numpy as np
-from nltk.tokenize import word_tokenize
-from nltk.stem import WordNetLemmatizer
 
+import nltk
 nltk.download('stopwords')
-
-from nltk.corpus import stopwords
+nltk.download('punkt')
+nltk.download('wordnet')
+from nltk.corpus import wordnet, stopwords
+from nltk.stem import WordNetLemmatizer
+from nltk.tokenize import word_tokenize
 
 ticker_pattern = re.compile(r'(^\$[A-Z]+|^\$ES_F)')
 ht_pattern = re.compile(r'#\w+')

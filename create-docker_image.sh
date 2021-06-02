@@ -1,7 +1,7 @@
 #!/bin/bash
 
 api_name=shugarev1974/check_text_order_v4
-file_settings=./check_text_order/settings.py
+file_settings=./check_text_order_api/settings.py
 
 #project_data=data_for_testing
 project_media=media

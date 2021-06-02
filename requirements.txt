@@ -3,12 +3,12 @@ Django==3.0
 djangorestframework==3.10.0
 joblib==1.0.0
 pandas==1.2.1
-pip==20.0.2
+pip==21.1.2
 scikit-learn==0.24.1
 scipy==1.4.1
 setuptools==49.6.0
 torch==1.6.0
-nunpy==1.20
+numpy==1.19.2
 nltk==3.4.5
 gensim==3.8.0
 h5py==2.10.0
