@@ -8,5 +8,5 @@ services:
     volumes:
       - ./media:/code/media
     ports:
-      - "8037:8000"
+      - "8040:8000"
     restart: always

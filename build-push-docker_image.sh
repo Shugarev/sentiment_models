@@ -3,10 +3,10 @@
 api_name=shugarev1974/check_text_order_v4
 file_settings=./check_text_order/settings.py
 
-project_data=data_for_testing
+#project_data=data_for_testing
 project_media=media
 
-tmp_data=../tmp-data_for_testing
+#tmp_data=../tmp-data_for_testing
 tmp_media=../tmp-media
 
 pytorch_models=pytorch_models.py
@@ -19,9 +19,9 @@ init=__init__.py
 sed -i "s/DEBUG = True/DEBUG = False/g" $file_settings
 
 
-if [ -d ${tmp_data} ]; then rm -Rf ${tmp_data}; fi
-mkdir -p ${tmp_data}
-find ${project_data} -type f -print0 | xargs -0 mv -t ${tmp_data}
+#if [ -d ${tmp_data} ]; then rm -Rf ${tmp_data}; fi
+#mkdir -p ${tmp_data}
+#find ${project_data} -type f -print0 | xargs -0 mv -t ${tmp_data}
 
 if [ -d ${tmp_media} ]; then rm -Rf ${tmp_media}; fi
 mkdir -p ${tmp_media}
@@ -48,8 +48,8 @@ docker build -t ${api_name} .
 
 sed -i "s/DEBUG = False/DEBUG = True/g" ${file_settings}
 
-find ${tmp_data} -type f -print0 | xargs -0 mv -t ${project_data}
-rmdir ${tmp_data}
+#find ${tmp_data} -type f -print0 | xargs -0 mv -t ${project_data}
+#rmdir ${tmp_data}
 
 find ${tmp_media} -type f -print0 | xargs -0 mv -t ${project_media}
 rmdir ${tmp_media}
