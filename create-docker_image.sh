@@ -1,6 +1,6 @@
 #!/bin/bash
 
-api_name=shugarev1974/check_text_order_v4
+api_name=shugarev1974/check_text_order_with_finbert
 file_settings=./check_text_order_api/settings.py
 
 #project_data=data_for_testing
@@ -25,11 +25,7 @@ sed -i "s/DEBUG = True/DEBUG = False/g" $file_settings
 
 if [ -d ${tmp_media} ]; then rm -Rf ${tmp_media}; fi
 mkdir -p ${tmp_media}
-find ${project_media} -type f -print0 | xargs -0 mv -t ${tmp_media}
-
-# move pytorch_models.py and __init__.py to media folder
-mv ${tmp_media}/${pytorch_models} ${project_media}
-mv ${tmp_media}/${init} ${project_media}
+mv ${project_media}/* ${tmp_media}
 
 # удаление прдедидущего образа проекта
 docker rmi ${api_name}
@@ -51,5 +47,5 @@ sed -i "s/DEBUG = False/DEBUG = True/g" ${file_settings}
 #find ${tmp_data} -type f -print0 | xargs -0 mv -t ${project_data}
 #rmdir ${tmp_data}
 
-find ${tmp_media} -type f -print0 | xargs -0 mv -t ${project_media}
-rmdir ${tmp_media}
+mv ${tmp_media}/* ${project_media}
+#rmdir ${tmp_media}

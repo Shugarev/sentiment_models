@@ -1,5 +1,5 @@
 import pandas as pd
-from api.utils import get_model, finbert_label
+from api.utils import get_model, finbert_label, get_finbert_prediction
 from evaluation.datasetPrepocessing import DataPreprocessing
 from keras.preprocessing.sequence import pad_sequences
 
@@ -20,6 +20,8 @@ class DatasetTester:
             return cls.get_sentiment_sgd(config_data, order_data)
         elif model_name.startswith("keras"):
             return cls.get_sentiment_keras_rnn(config_data, order_data)
+        elif model_name.startswith("pytorch"):
+            return cls.get_sentiment_finbert(config_data, order_data)
 
     @classmethod
     def get_sentiment_sgd(cls, config_data, order_data):
@@ -58,3 +60,11 @@ class DatasetTester:
 
         max_index = predict_proba.index(max(predict_proba))
         return finbert_label.get(max_index)
+
+    @classmethod
+    def get_sentiment_finbert(cls, config_data, order_data):
+        model_finbert_name = config_data.get('profile')
+        text = order_data.get('text')
+
+        model_finbert = get_model(model_finbert_name)
+        return get_finbert_prediction(model_finbert, text)

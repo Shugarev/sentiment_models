@@ -7,9 +7,13 @@ import joblib
 import keras
 from check_text_order_api.settings import BASE_DIR
 
+from transformers import AutoModelForSequenceClassification
+from finbert.finbert import predict
 
 models = {}
-
+_positive = 'positive'
+_negative = 'negative'
+_neutral = 'neutral'
 finbert_label = {0: 'positive', 1: 'neutral', 2: 'negative'}
 
 
@@ -42,6 +46,11 @@ def get_model(model_name: str):
         model_keras = keras.models.load_model(model_path)
         models[model_name] = model_keras
         return model_keras
+    elif model_name.startswith('pytorch'):
+        model_path = "{}/media/{}".format(BASE_DIR, 'finbert_model')
+        model_finbert = AutoModelForSequenceClassification.from_pretrained(model_path, cache_dir=None, num_labels=3)
+        models[model_name] = model_finbert
+        return model_finbert
 
     return model
 
@@ -65,22 +74,19 @@ def validate_data(request):
         validate = False
     else:
         profile_name = config.get('profile')
-        vecorized_model_name = config.get('vectorized_model') or config.get('tokenizer_model')
-
         if not profile_name:
             message['profile_error'] = 'Profile is required in config'
             validate = False
-        elif not vecorized_model_name:
-            message['profile_error'] = 'Vecorized model is required in config'
-            validate = False
-        else:
-            profile_path = get_full_path(profile_name)
-            vecorized_model_path = get_full_path(vecorized_model_name)
-
-            if not os.path.isfile(vecorized_model_path):
-                onlyfiles = get_model_list()
-                message['profile_error'] = 'Invalid  profile {}. Expected profiles from list: {}'. \
-                    format(profile_name, ', '.join(onlyfiles))
-                validate = False
 
     return validate, message
+
+def get_finbert_prediction(model_finbert, text):
+    result = predict(text, model_finbert)
+    predict_label = _neutral
+    label = result['prediction'].values
+
+    if _positive in label and _negative not in label:
+        predict_label = _positive
+    elif _positive not in label and _negative in label:
+        predict_label = _negative
+    return predict_label

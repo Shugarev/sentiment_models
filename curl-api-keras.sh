@@ -8,7 +8,7 @@ curl -i -X POST \
 "text": "#Penske Automotive Q1 results beat estimates, with revenue growth of 15.3%"
 }
 }' \
- 'http://0.0.0.0:8040/api/v4/check_text_order/'
+ 'http://0.0.0.0:8000/api/v4/check_text_order/'
 
 
 #Penske Automotive Q1 results beat estimates, with revenue growth of 15.3% - positive

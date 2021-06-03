@@ -29,10 +29,15 @@ http://127.0.0.1:8040/api/v4/check_text_order/ - с сервера
 В docker-compose нужно задать порт по которому будет слушаться: 8040
 
 Если мы не хотим пушить образ в докер репозиторий, то используем команды для сохранения и загрузки образа:
-docker save -o ~/check_text_order_v4.tar shugarev1974/check_text_order_v4
+docker save -o ~/check_text_order_with_finbert.tar shugarev1974/check_text_order_with_finbert
 
+Копируем файл в корневую папку докер контейнера.
+Делаем из папки контейнера архив.
+tar -czvf  docker_sentiment_models_with_finbert_3_06_2021.tar.gz .
+
+Как развернуть контейнер:
 Для записи на сервер поменять пользователя:
-sudo chown sergey:sergey check_text_order_v4.tar
+sudo chown sergey:sergey check_text_order_with_finbert.tar
 скопировать файл на сервер и распаковать образ.
 docker load -i check_text_order_v4.tar
 
