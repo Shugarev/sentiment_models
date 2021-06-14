@@ -113,25 +113,24 @@ class DataPreprocessing:
     def arrange_text(cls, ds):
         ds = ds.copy()
         ds['text2'] = ds['text'].apply(emoji)
-        print('emojy')
         ds['text2'] = ds['text2'].apply(handle)
-        print('hadnle')
         ds['text2'] = ds['text2'].apply(specialcode)
         ds['text2'] = ds['text2'].apply(hashtag)
         ds['text2'] = ds['text2'].apply(url)
-        print('url')
         ds['text2'] = ds['text2'].apply(pic)
         ds['text2'] = ds['text2'].apply(html_tag)
         ds['text2'] = ds['text2'].apply(onlychar)
-        print('onlychar')
         ds['text2'] = ds['text2'].apply(decontracted)
-        print('decontracted')
         ds['text2'] = ds['text2'].apply(onlychar)
-        print('onlychar')
         ds['text2'] = ds['text2'].apply(tokenize_stem)
-        print('tokenize strem')
-        #     ds['text2'] = ds['text2'].str.lower()
-        #     print('in_lower')
         ds['text2'] = ds['text2'].apply(remove_stopwords)
-        print('remove_stopwords')
         return ds
+
+    @classmethod
+    def arrange_finbert(cls, text: str):
+        text = re.sub('@', '', text)
+        text = re.sub(r'\\n', '', text)
+        text = text.strip('\n')
+        text = re.sub(r'"', '', text)
+        return text
+

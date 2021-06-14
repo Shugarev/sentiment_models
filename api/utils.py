@@ -14,7 +14,7 @@ models = {}
 _positive = 'positive'
 _negative = 'negative'
 _neutral = 'neutral'
-finbert_label = {0: 'positive', 1: 'neutral', 2: 'negative'}
+finbert_label = {0: 'positive', 1:  'negative', 2: 'neutral'}
 
 
 def get_full_path(name):

@@ -55,7 +55,7 @@ class DatasetTester:
 
         x_test_seq = get_sequences(tokenizer, df_text['text2'].values)
 
-        predict_proba = model_cnn.predict(x_test_seq)[0]
+        predict_proba = model_cnn(x_test_seq).numpy()[0]
         predict_proba = list(predict_proba)
 
         max_index = predict_proba.index(max(predict_proba))
@@ -65,6 +65,7 @@ class DatasetTester:
     def get_sentiment_finbert(cls, config_data, order_data):
         model_finbert_name = config_data.get('profile')
         text = order_data.get('text')
+        text = DataPreprocessing.arrange_finbert(text)
 
         model_finbert = get_model(model_finbert_name)
         return get_finbert_prediction(model_finbert, text)
